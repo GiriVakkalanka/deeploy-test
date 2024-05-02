@@ -24,7 +24,11 @@ function App() {
 
   return (
     <div className="App">
-      App
+      {data.map((user) => (
+        <div key={user.id}>
+          <p>{user.name}</p>
+        </div>
+      ))}
     </div>
   );
 }
