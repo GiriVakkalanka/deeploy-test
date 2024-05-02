@@ -15,8 +15,14 @@ function App() {
 
   useEffect(() => {
     const fetchDataAndSetData = async () => {
-      const fetchedData = await fetchData();
-      setData(fetchedData);
+      console.log('fetch is called')
+      try {
+        const fetchedData = await fetchData();
+        console.log(fetchedData, 'FETCHED DATA')
+        setData(fetchedData);
+      } catch (e) {
+        console.log(e, 'ERROR');
+      }
     };
 
     fetchDataAndSetData();
