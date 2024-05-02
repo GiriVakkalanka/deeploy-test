@@ -15,16 +15,16 @@ app.get('/api', (req, res) => {
     res.json(users);
 });
 
-app.get('/api/another', (req, res) => {
-    // Array of generic users
+app.get('/api/posts', (req, res) => {
+    // Array of generic posts
     const posts = [
         { id: 1, post: 'This app is awesome' },
         { id: 2, post: 'This app sucks' },
         { id: 3, post: 'I like turtles' }
     ];
 
-    // Send the users as a response
-    res.json(users);
+    // Send the posts as a response
+    res.json(posts);
 });
 
 // Start the server on port 5000
