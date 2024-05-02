@@ -1,6 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 
 const app = express();
+
+app.use(cors({
+    origin: 'https://deeploy-test-client.vercel.app/'
+}));
 
 // Define a route for /api
 app.get('/api', (req, res) => {
