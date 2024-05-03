@@ -5,7 +5,7 @@ import './App.css';
 
 
 const fetchData = async () => {
-  const response = await fetch('https://deeploy-test.vercel.app/api', { credentials: 'include' });
+  const response = await fetch('https://deeploy-test.vercel.app/api');
   const data = await response.json();
   return data;
 };
