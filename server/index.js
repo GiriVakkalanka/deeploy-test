@@ -4,8 +4,8 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors({
-    // origin: ['https://deeploy-test-client.vercel.app/'],
-    origin: '*',
+    origin: ['https://deeploy-test-client.vercel.app'],
+    // origin: '*',
     methods: ['GET']
 }));
 
