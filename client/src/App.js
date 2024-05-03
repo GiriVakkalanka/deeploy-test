@@ -6,8 +6,8 @@ import './App.css';
 
 const fetchData = async () => {
   // const response = await fetch('https://deeploy-test.vercel.app/api');
-  // const response = await fetch(`${process.env.REACT_APP_DEEPLOY_SERVER_URL}/api`);
-  const response = await fetch('/api');
+  const response = await fetch(`${process.env.REACT_APP_DEEPLOY_SERVER_URL}/api`);
+  // const response = await fetch('/api');
   const data = await response.json();
   return data;
 };
