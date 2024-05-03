@@ -2,7 +2,9 @@ require('dotenv').config({ path: './.env'});
 const express = require('express');
 const cors = require('cors');
 const pool = require('./database')
+const { PrismaClient } = require('@prisma/client')
 
+const prisma = new PrismaClient()
 const app = express();
 
 app.use(cors({
@@ -26,14 +28,15 @@ app.get('/api', (req, res) => {
     res.json(users);
 });
 
-app.get('/api/posts', (req, res) => {
+app.get('/api/posts', async (req, res) => {
     // Array of generic posts
-    const posts = [
-        { id: 1, post: 'This app is awesome' },
-        { id: 2, post: 'This app sucks' },
-        { id: 3, post: 'I like turtles' }
-    ];
-
+    // const posts = [
+    //     { id: 1, post: 'This app is awesome' },
+    //     { id: 2, post: 'This app sucks' },
+    //     { id: 3, post: 'I like turtles' }
+    // ];
+    const posts = await prisma.post.findMany()
+    console.log(posts, 'POSTS')
     // Send the posts as a response
     res.json(posts);
 });
