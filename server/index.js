@@ -11,6 +11,7 @@ app.use(cors({
 // Define a route for /api
 app.get('/api', (req, res) => {
     // Array of generic users
+    console.log('API CALLED')
     const users = [
         { id: 1, name: 'John Doe' },
         { id: 2, name: 'Jane Smith' },
