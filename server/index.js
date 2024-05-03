@@ -1,5 +1,7 @@
+require('dotenv').config({ path: './.env'});
 const express = require('express');
 const cors = require('cors');
+const pool = require('./database')
 
 const app = express();
 
@@ -7,6 +9,8 @@ app.use(cors({
     origin: ['https://deeploy-test-client.vercel.app', 'http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
+
+
 
 // Define a route for /api
 app.get('/api', (req, res) => {
@@ -37,4 +41,7 @@ app.get('/api/posts', (req, res) => {
 // Start the server on port 5000
 app.listen(5000, () => {
     console.log('Server is listening on port 5000');
+    console.log(process.env.POSTGRES_URL);
 });
+
+//"postgres://default:PWsB8Ur6hcFA@ep-lively-night-a4iab1g4.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
