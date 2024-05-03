@@ -14,7 +14,7 @@ const fetchData = async () => {
 
 //Delete this function
 const fetchOtherData = async () => {
-  const response = await fetch('/api/posts');
+  const response = await fetch(`${process.env.REACT_APP_DEEPLOY_SERVER_URL}/api/posts`);
   const data = await response.json();
   return data;
 }
