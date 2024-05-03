@@ -5,7 +5,7 @@ import './App.css';
 
 
 const fetchData = async () => {
-  const response = await fetch('/api');
+  const response = await fetch('/api', { credentials: 'include' });
   const data = await response.json();
   return data;
 };
