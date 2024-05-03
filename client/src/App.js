@@ -5,7 +5,7 @@ import './App.css';
 
 
 const fetchData = async () => {
-  const response = await fetch('/api', { credentials: 'include' });
+  const response = await fetch('https://deeploy-test.vercel.app/api', { credentials: 'include' });
   const data = await response.json();
   return data;
 };
@@ -41,3 +41,5 @@ function App() {
 }
 
 export default App;
+
+//"proxy": "https://deeploy-test.vercel.app",
