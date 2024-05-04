@@ -52,6 +52,25 @@ app.get('/api/tickets', async (req, res) => {
     }
 });
 
+// Post a new ticket to the database
+app.post('/api/tickets', async (req, res) => {
+    const { name, email, description } = req.body;
+    try {
+        const ticket = await prisma.ticket.create({
+            data: {
+                name: name,
+                email: email,
+                description: description
+            }
+        });
+        
+        res.json(ticket);
+    } catch (error) {
+        console.error('Error creating ticket:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 // Retrieve and return all tickets submitted by the email address
 app.get('/api/tickets/:email', async (req, res) => {
     const { email } = req.params;

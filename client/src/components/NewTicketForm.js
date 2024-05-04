@@ -2,12 +2,18 @@ import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate
 
+import useTicketsApi from '../hooks/useTicketsApi';
+
 const NewTicketForm = ({ open, handleClose }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [description, setDescription] = useState('');
   const [errors, setErrors] = useState({});
-  const navigate = useNavigate();  // Setup navigate for redirection
+  const navigate = useNavigate();
+
+  const {
+    submitTicket,
+  } = useTicketsApi();
 
   const validateForm = () => {
     let tempErrors = {};
@@ -20,7 +26,9 @@ const NewTicketForm = ({ open, handleClose }) => {
 
   const handleSubmit = () => {
     if (validateForm()) {
-      console.log({ name, email, description }); // Logging the data to console
+      console.log({ name, email, description });
+      submitTicket({ name, email, description });
+
       // Resetting the form fields
       setName('');
       setEmail('');
