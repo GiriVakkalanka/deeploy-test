@@ -9,9 +9,10 @@ const app = express();
 
 app.use(cors({
     origin: ['https://deeploy-test-client.vercel.app', 'http://localhost:3000'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type']
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
 }));
+
+app.use(express.json());
 
 
 
@@ -55,21 +56,23 @@ app.get('/api/tickets', async (req, res) => {
 
 // Post a new ticket to the database
 app.post('/api/tickets', async (req, res) => {
-    const { name, email, description } = req.body;
-    try {
-        const ticket = await prisma.ticket.create({
-            data: {
-                name: name,
-                email: email,
-                description: description
-            }
-        });
+    console.log('API CALLED')
+    console.log(req.body, 'REQ BODY');
+    // const { name, email, description } = req.body;
+    // try {
+    //     const ticket = await prisma.ticket.create({
+    //         data: {
+    //             name: name,
+    //             email: email,
+    //             description: description
+    //         }
+    //     });
         
-        res.json(ticket);
-    } catch (error) {
-        console.error('Error creating ticket:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
+    //     res.json(ticket);
+    // } catch (error) {
+    //     console.error('Error creating ticket:', error);
+    //     res.status(500).json({ error: 'Internal Server Error' });
+    // }
 });
 
 // Retrieve and return all tickets submitted by the email address
