@@ -35,11 +35,11 @@ model Message {
   messageId   Int      @id @default(autoincrement()) @map("message_id")
   ticketId    Int      @map("ticket_id")
   messageText String   @map("message_text") @db.Text
-  senderId    String   @map("sender_id")
-  createdAt DateTime @default(now()) @map("created_at")
+  senderId    String?  @map("sender_id")
+  createdAt   DateTime @default(now()) @map("created_at")
 
   // Relation to Ticket
-  ticket Ticket @relation(fields: [ticketId], references: [ticketId])
+  ticket      Ticket   @relation(fields: [ticketId], references: [ticketId])
 
   @@map("Messages")
 }
