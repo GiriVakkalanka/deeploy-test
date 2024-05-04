@@ -22,7 +22,7 @@ model Ticket {
   updatedAt   DateTime  @updatedAt @map("updated_at")
   Message     Message[]
 
-  @@map("tickets")
+  @@map("Tickets")
 }
 
 enum Status {
@@ -41,5 +41,5 @@ model Message {
   // Relation to Ticket
   ticket Ticket @relation(fields: [ticketId], references: [ticketId])
 
-  @@map("messages")
+  @@map("Messages")
 }
