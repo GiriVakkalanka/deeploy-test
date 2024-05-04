@@ -19,7 +19,7 @@ model Ticket {
   description String    @db.Text
   status      Status    @default(NEW)
   createdAt   DateTime  @default(now()) @map("created_at")
-  updatedAt   DateTime  @updatedAt @map("updated_at")
+  updatedAt   DateTime?  @updatedAt @map("updated_at")
   Message     Message[]
 
   @@map("Tickets")
@@ -36,7 +36,7 @@ model Message {
   ticketId    Int      @map("ticket_id")
   messageText String   @map("message_text") @db.Text
   senderId    String   @map("sender_id")
-  dateCreated DateTime @default(now()) @map("date_created")
+  createdAt DateTime @default(now()) @map("created_at")
 
   // Relation to Ticket
   ticket Ticket @relation(fields: [ticketId], references: [ticketId])

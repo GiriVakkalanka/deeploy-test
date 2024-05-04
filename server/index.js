@@ -41,6 +41,50 @@ app.get('/api/posts', async (req, res) => {
     res.json(posts);
 });
 
+// Retrieve and return all tickets from the database
+app.get('/api/tickets', async (req, res) => {
+    try {
+        const tickets = await prisma.ticket.findMany();
+        res.json(tickets);
+    } catch (error) {
+        console.error('Error retrieving tickets:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Retrieve and return all tickets submitted by the email address
+app.get('/api/tickets/:email', async (req, res) => {
+    const { email } = req.params;
+    try {
+        const tickets = await prisma.ticket.findMany({
+            where: {
+                email: email
+            }
+        });
+        res.json(tickets);
+    } catch (error) {
+        console.error('Error retrieving tickets:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Retrieve and return all messages associated with the ticket
+app.get('/api/messages/:ticket_id', async (req, res) => {
+    const { ticket_id: ticketID } = req.params;
+    try {
+        const messages = await prisma.message.findMany({
+            where: {
+                ticketID: parseInt(ticketID)
+            }
+        });
+        res.json(messages);
+    } catch (error) {
+        console.error('Error retrieving messages:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
 // Start the server on port 5000
 app.listen(5000, () => {
     console.log('Server is listening on port 5000');
