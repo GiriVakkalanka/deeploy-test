@@ -74,7 +74,7 @@ app.get('/api/messages/:ticket_id', async (req, res) => {
     try {
         const messages = await prisma.message.findMany({
             where: {
-                ticketID: parseInt(ticketId)
+                ticketId: parseInt(ticketId)
             }
         });
         res.json(messages);
