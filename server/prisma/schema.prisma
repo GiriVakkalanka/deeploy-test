@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,6 +8,38 @@ datasource db {
 }
 
 model Post {
-  id        Int   @id @default(autoincrement())
-  content   String
+  id      Int    @id @default(autoincrement())
+  content String
+}
+
+model Ticket {
+  ticketId    Int       @id @default(autoincrement()) @map("ticket_id")
+  name        String
+  email       String
+  description String    @db.Text
+  status      Status    @default(NEW)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+  Message     Message[]
+
+  @@map("tickets")
+}
+
+enum Status {
+  NEW
+  ONGOING
+  RESOLVED
+}
+
+model Message {
+  messageId   Int      @id @default(autoincrement()) @map("message_id")
+  ticketId    Int      @map("ticket_id")
+  messageText String   @map("message_text") @db.Text
+  senderId    String   @map("sender_id")
+  dateCreated DateTime @default(now()) @map("date_created")
+
+  // Relation to Ticket
+  ticket Ticket @relation(fields: [ticketId], references: [ticketId])
+
+  @@map("messages")
 }

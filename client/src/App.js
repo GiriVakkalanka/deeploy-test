@@ -66,7 +66,7 @@ function App() {
       <p>Other Data</p>
       {otherData.map((post) => (
         <div key={post.id}>
-          <p>{post.post}</p>
+          <p>{post.content}</p>
         </div>
       ))}
     </div>
