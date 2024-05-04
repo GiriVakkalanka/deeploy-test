@@ -14,8 +14,6 @@ app.use(cors({
 
 app.use(express.json());
 
-
-
 // Define a route for /api
 app.get('/api', (req, res) => {
     // Array of generic users
@@ -58,21 +56,21 @@ app.get('/api/tickets', async (req, res) => {
 app.post('/api/tickets', async (req, res) => {
     console.log('API CALLED')
     console.log(req.body, 'REQ BODY');
-    // const { name, email, description } = req.body;
-    // try {
-    //     const ticket = await prisma.ticket.create({
-    //         data: {
-    //             name: name,
-    //             email: email,
-    //             description: description
-    //         }
-    //     });
+    const { name, email, description } = req.body;
+    try {
+        const ticket = await prisma.ticket.create({
+            data: {
+                name: name,
+                email: email,
+                description: description
+            }
+        });
         
-    //     res.json(ticket);
-    // } catch (error) {
-    //     console.error('Error creating ticket:', error);
-    //     res.status(500).json({ error: 'Internal Server Error' });
-    // }
+        res.json(ticket);
+    } catch (error) {
+        console.error('Error creating ticket:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 // Retrieve and return all tickets submitted by the email address
