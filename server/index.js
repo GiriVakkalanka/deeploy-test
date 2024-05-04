@@ -70,11 +70,11 @@ app.get('/api/tickets/:email', async (req, res) => {
 
 // Retrieve and return all messages associated with the ticket
 app.get('/api/messages/:ticket_id', async (req, res) => {
-    const { ticket_id: ticketID } = req.params;
+    const { ticket_id: ticketId } = req.params;
     try {
         const messages = await prisma.message.findMany({
             where: {
-                ticketID: parseInt(ticketID)
+                ticketID: parseInt(ticketId)
             }
         });
         res.json(messages);
