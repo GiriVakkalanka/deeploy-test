@@ -10,6 +10,7 @@ const app = express();
 app.use(cors({
     origin: ['https://deeploy-test-client.vercel.app', 'http://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type']
 }));
 
 

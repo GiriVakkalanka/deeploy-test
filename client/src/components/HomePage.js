@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
     Box, 
@@ -23,6 +23,60 @@ const AdminPage = () => {
     const handleAdminClick = () => {
         navigate('/admin');
     }
+
+    //////////////////
+    const fetchData = async () => {
+        // const response = await fetch('https://deeploy-test.vercel.app/api');
+        const response = await fetch(`${process.env.REACT_APP_DEEPLOY_SERVER_URL}/api`);
+        // const response = await fetch('/api');
+        const data = await response.json();
+        return data;
+    };
+      
+    const fetchOtherData = async () => {
+        const response = await fetch(`${process.env.REACT_APP_DEEPLOY_SERVER_URL}/api/posts`);
+        const data = await response.json();
+        return data;
+    }
+
+    const [data, setData] = useState([{}]);
+    const [otherData, setOtherData] = useState([{}]);
+  
+    useEffect(() => {
+      const fetchDataAndSetData = async () => {
+        console.log('fetch is called')
+        console.log(process.env.REACT_APP_DEEPLOY_SERVER_URL, 'DEEPLOY_SERVER_URL')
+        try {
+          const fetchedData = await fetchData();
+          console.log(fetchedData, 'FETCHED DATA')
+          setData(fetchedData);
+        } catch (e) {
+          console.log(e, 'ERROR');
+        }
+      };
+  
+      //Delete this function
+      const fetchOtherDataAndSetOtherData = async () => {
+        console.log('fetch is called')
+        console.log(process.env.REACT_APP_DEEPLOY_SERVER_URL, 'DEEPLOY_SERVER_URL')
+        try {
+          const fetchedData = await fetchOtherData();
+          console.log(fetchedData, 'FETCHED DATA')
+          setOtherData(fetchedData);
+        } catch (e) {
+          console.log(e, 'ERROR');
+        }
+      };
+  
+  
+      fetchDataAndSetData();
+      fetchOtherDataAndSetOtherData();
+    }, []);
+
+
+
+
+    //////////////////
 
     return (
         <React.Fragment>
