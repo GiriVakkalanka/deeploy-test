@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Container, Box, Typography } from '@mui/material';
 import Ticket from './Ticket';
 import useTicketsApi from '../hooks/useTicketsApi';
@@ -10,8 +11,12 @@ const UserTicketPage = () => {
     const [tickets, setTickets] = useState([]);
     const [openEmailForm, setOpenEmailForm] = useState(!email);
     const { getTicketsByEmail } = useTicketsApi();
+    const navigate = useNavigate();
 
     useEffect(() => {
+        if(!email) {
+            navigate('/')
+        }    
         const fetchData = async () => {
             try {
                 const response = await getTicketsByEmail(email);
@@ -24,7 +29,7 @@ const UserTicketPage = () => {
 
         fetchData();
     }, []);
-    return ( email ? (
+    return (
         <Container>
             <Box display="flex" flexDirection="column" alignItems="center" marginTop={4}>
                 <Typography variant="h4" component="h1" gutterBottom>
@@ -34,11 +39,7 @@ const UserTicketPage = () => {
                     <Ticket key={index} {...ticket} />
                 ))}
             </Box>
-        </Container>) : (
-            <Container>
-                <EmailForm open={openEmailForm} onClose={() => {}}/>
-            </Container>
-        )
+        </Container>
     );
 };
 
