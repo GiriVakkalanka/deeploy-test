@@ -15,7 +15,7 @@ import { useUser } from '../contexts/UserContext';
 const Ticket = ({ ticketId, name, email, description, date, status: currentStatus }) => {
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [status, setStatus] = useState('NEW');
+  const [status, setStatus] = useState(currentStatus);
   const [messagesExpanded, setMessagesExpanded] = useState(false);
   const { pathname } = useLocation();
   const { email: loggedInEmail } = useUser();
