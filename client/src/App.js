@@ -40,12 +40,12 @@ function App() {
                 <IconButton edge="start" color="inherit" aria-label="home" onClick={() => navigate('/')} sx={{ marginRight: 'auto' }}>
                   <HomeIcon />
                 </IconButton>
-                <Button color="secondary" onClick={handleAdminClick} variant="contained" sx={{ marginRight: 2 }}>
-                  Admin
-                </Button>
                 {email && <Button color="secondary" onClick={handleLogout} variant="contained" sx={{ marginRight: 2 }}>
                   {`Log out as ${email}`}
                 </Button>}
+                <Button color="secondary" onClick={handleAdminClick} variant="contained" sx={{ marginRight: 2 }}>
+                  Admin
+                </Button>
               </Toolbar>
           </AppBar>
       </React.Fragment>
