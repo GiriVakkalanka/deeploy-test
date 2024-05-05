@@ -1,9 +1,11 @@
-const UserTicketPage = () => {
-    return (
-        <div>
-           User Ticket Page
-        </div>
-    );
-}
+import Ticket from './Ticket';
+
+const UserTicketPage = ({ tickets }) => {
+  return (
+    <div>
+      Ticket Page
+    </div>
+  );
+};
 
 export default UserTicketPage;

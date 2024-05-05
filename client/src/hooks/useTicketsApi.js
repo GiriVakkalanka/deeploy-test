@@ -30,7 +30,33 @@ const useTicketsApi = () => {
         }
     };
 
-    return { isLoading, error, submitTicket };
+    const getAllTickets = async () => {
+        setIsLoading(true);
+        setError(null);
+
+        try {
+            const response = await fetch(`${process.env.REACT_APP_DEEPLOY_SERVER_URL}/api/tickets`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to get tickets');
+            }
+
+            const tickets = await response.json();
+
+            return tickets;
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return { isLoading, error, submitTicket, getAllTickets };
 };
 
 export default useTicketsApi;
