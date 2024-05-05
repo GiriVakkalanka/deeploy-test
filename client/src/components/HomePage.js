@@ -99,7 +99,7 @@ const HomePage = () => {
                         See Your Tickets
                         </Typography>
                         <Typography variant="body1" align="center">
-                        View all your tickets and track their status.
+                        Click here to track all your tickets and chat with an Agent.
                         </Typography>
                     </CardContent>
                     </Card>

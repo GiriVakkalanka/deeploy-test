@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Container, Box } from '@mui/material';
+import { Container, Box, Typography } from '@mui/material';
 import Ticket from './Ticket';
 import useTicketsApi from '../hooks/useTicketsApi';
 
@@ -22,7 +22,10 @@ const AdminPage = () => {
     }, []);
     return (
         <Container>
-            <Box display="flex" flexDirection="column" alignItems="center">
+            <Box display="flex" flexDirection="column" alignItems="center" marginTop={4}>
+            <Typography variant="h4" component="h1" gutterBottom>
+                Admin Dashboard
+            </Typography>
                 {tickets && tickets.map((ticket, index) => (
                     <Ticket key={index} {...ticket} />
                 ))}

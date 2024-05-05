@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Dialog, DialogTitle, DialogContent, TextField, Button, DialogActions } from '@mui/material';
 import { useNavigate } from 'react-router-dom';  // Import useNavigate
 
+import { useUser } from '../contexts/UserContext';
 import useTicketsApi from '../hooks/useTicketsApi';
 
 const NewTicketForm = ({ open, handleClose }) => {
@@ -10,6 +11,7 @@ const NewTicketForm = ({ open, handleClose }) => {
   const [description, setDescription] = useState('');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
+  const { saveEmail } = useUser();
 
   const {
     submitTicket,
@@ -27,6 +29,7 @@ const NewTicketForm = ({ open, handleClose }) => {
   const handleSubmit = () => {
     if (validateForm()) {
       console.log({ name, email, description });
+      saveEmail(email); 
       submitTicket({ name, email, description });
 
       // Resetting the form fields

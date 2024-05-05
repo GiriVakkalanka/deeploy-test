@@ -10,7 +10,7 @@ const EmailForm = ({ open, onClose }) => {
 
     const handleSubmit = () => {
         saveEmail(email);
-        onClose(); // Close the dialog
+        onClose(); 
         navigate('/tickets'); // Navigate to tickets page
     };
 

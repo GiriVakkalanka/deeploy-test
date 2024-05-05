@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Container, Box } from '@mui/material';
+import { Container, Box, Typography } from '@mui/material';
 import Ticket from './Ticket';
 import useTicketsApi from '../hooks/useTicketsApi';
 import { useUser } from '../contexts/UserContext';
+import EmailForm from './EmailForm';
 
 const UserTicketPage = () => {
     const { email } = useUser();
     const [tickets, setTickets] = useState([]);
+    const [openEmailForm, setOpenEmailForm] = useState(!email);
     const { getTicketsByEmail } = useTicketsApi();
 
     useEffect(() => {
@@ -22,14 +24,21 @@ const UserTicketPage = () => {
 
         fetchData();
     }, []);
-    return (
+    return ( email ? (
         <Container>
-            <Box display="flex" flexDirection="column" alignItems="center">
+            <Box display="flex" flexDirection="column" alignItems="center" marginTop={4}>
+                <Typography variant="h4" component="h1" gutterBottom>
+                    My Tickets
+                </Typography>
                 {tickets && tickets.map((ticket, index) => (
                     <Ticket key={index} {...ticket} />
                 ))}
             </Box>
-        </Container>
+        </Container>) : (
+            <Container>
+                <EmailForm open={openEmailForm} onClose={() => {}}/>
+            </Container>
+        )
     );
 };
 

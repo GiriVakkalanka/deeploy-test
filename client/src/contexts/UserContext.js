@@ -6,7 +6,7 @@ const UserContext = createContext();
 export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }) => {
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(null);
 
     const saveEmail = (newEmail) => {
         setEmail(newEmail);
