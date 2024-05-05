@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import moment from 'moment';
 import { List, ListItem, ListItemText, Typography } from '@mui/material';
 
 const MessageList = ({ messages }) => {
@@ -18,9 +19,10 @@ const MessageList = ({ messages }) => {
       {messages.map((message, index) => (
         <ListItem key={index} alignItems="flex-start">
           <ListItemText
-            primary={`${message.senderId} (${new Date(message.date).toLocaleString()})`}
+            primary={`${message.senderId} (${moment(message.createdAt).format('MMMM Do YYYY, h:mm:ss a')})`}
             secondary={<Typography component="span" variant="body2">{message.messageText}</Typography>}
           />
+          {console.log(message.createdAt, 'Message Date')}
         </ListItem>
       ))}
     </List>

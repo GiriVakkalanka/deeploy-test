@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import moment from 'moment';
 import { Card, CardContent, Typography, Box, IconButton, Collapse, MenuItem, Menu } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -126,7 +127,7 @@ const Ticket = ({ ticketId, name, email, description, date, status: currentStatu
           </IconButton>
         )}
         <Typography variant="body2" color="text.secondary">
-          {new Date(date).toLocaleDateString()}
+          {moment(date).format('MMMM Do, YYYY, h:mm:ss a')}
         </Typography>
         <Menu
           id="status-menu"
