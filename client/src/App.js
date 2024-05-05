@@ -19,13 +19,14 @@ import AdminPage from './components/AdminPage';
 function App() {
   const navigate = useNavigate();
   const { email, saveEmail } = useUser();
+  console.log(email, 'EMAIL AT APP LEVEL')
 
   const handleAdminClick = () => {
     navigate('/admin');
   };
 
   const handleLogout = () => {
-    saveEmail(null);
+    saveEmail('');
     navigate('/');
   }
 
