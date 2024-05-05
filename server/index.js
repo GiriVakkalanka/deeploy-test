@@ -41,7 +41,7 @@ app.get('/api/posts', async (req, res) => {
     res.json(posts);
 });
 
-// Retrieve and return all tickets from the database
+// Retrieve and return tickets from the database
 app.get('/api/tickets', async (req, res) => {
     // Check for a query string paramater email
     const { email } = req.query;
@@ -97,7 +97,7 @@ app.patch('/api/tickets/:id', async (req, res) => {
     try {
         const ticket = await prisma.ticket.update({
             where: {
-                id: parseInt(id)
+                ticketId: parseInt(id)
             },
             data: {
                 status: status
@@ -166,5 +166,3 @@ app.listen(5000, () => {
     console.log('Server is listening on port 5000');
     console.log(process.env.POSTGRES_URL);
 });
-
-//"postgres://default:PWsB8Ur6hcFA@ep-lively-night-a4iab1g4.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require"
