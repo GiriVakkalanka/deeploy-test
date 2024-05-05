@@ -18,7 +18,7 @@ const MessageList = ({ messages }) => {
       {messages.map((message, index) => (
         <ListItem key={index} alignItems="flex-start">
           <ListItemText
-            primary={`${message.messageSender} (${new Date(message.date).toLocaleString()})`}
+            primary={`${message.senderId} (${new Date(message.date).toLocaleString()})`}
             secondary={<Typography component="span" variant="body2">{message.messageText}</Typography>}
           />
         </ListItem>

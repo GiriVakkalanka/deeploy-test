@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Card, CardContent, Typography, Box, IconButton, Collapse, MenuItem, Menu } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -7,6 +8,7 @@ import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 
 import useMessagesApi from '../hooks/useMessagesApi';
+import { useUser } from '../contexts/UserContext';
 
 // const sampleMessages = [
 //     {
@@ -30,12 +32,11 @@ const Ticket = ({ ticketId, name, email, description, date, status: currentStatu
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [status, setStatus] = useState('NEW');
-
   const [messagesExpanded, setMessagesExpanded] = useState(false);
-//   const [messages, setMessages] = useState(sampleMessages);
-
-  const { messages, setMessages, postMessage } = useMessagesApi(ticketId);
-
+  const { pathname } = useLocation();
+  const { email: loggedInEmail } = useUser();
+  const { messages, setMessages, postMessage } = useMessagesApi(ticketId);  
+  console.log(messages, 'Messages')
   const open = Boolean(anchorEl);
   const descriptionThreshold = 300; // Threshold for description length before expanding
 
@@ -55,23 +56,18 @@ const Ticket = ({ ticketId, name, email, description, date, status: currentStatu
     setMessagesExpanded(!messagesExpanded);
   };
 
-  const handleSendMessage = (text) => {
-    // const newMessage = {
-    //   messageText: text,
-    //   messageSender: "user@example.com", // Static example
-    //   date: new Date().toISOString()
-    // };
-    // setMessages([...messages, newMessage]);
-
-    //ADD IN LOGIC FOR SENDER ID HERE
-    // if rendered in admin page sender is null else its from the context
+  const handleSendMessage = (messageText) => {
+    const isUser = pathname === '/tickets';
+    const sender = isUser ? loggedInEmail : 'Admin';
     const newMessage = {
-        messageText: text,
-        senderId: null
+        messageText,
+        ticketId,
+        senderId: sender,
+        createdAt: new Date().toISOString(),
     }
-    postMessage(ticketId, text)
+    postMessage(ticketId, messageText, sender)
     setMessages(prevMessages => [...prevMessages, newMessage]);
-    console.log("Message sent:", text);
+    console.log("Message sent:", newMessage);
   };
 
   const handleStatusChange = (newStatus) => {
@@ -158,6 +154,7 @@ const Ticket = ({ ticketId, name, email, description, date, status: currentStatu
       </CardContent>
     </Card>
   );
-};
+}
+
 
 export default Ticket;
