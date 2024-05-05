@@ -38,7 +38,7 @@ const NewTicketForm = ({ open, handleClose }) => {
       setDescription('');
       handleClose();  // Close the dialog
       // setTimeout(() => navigate('/tickets'), 1);  // Redirect to view tickets page
-      navigate('/tickets')
+      navigate('/completed')
     }
   };
 
