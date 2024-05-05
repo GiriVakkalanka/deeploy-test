@@ -14,6 +14,13 @@ const EmailForm = ({ open, onClose }) => {
         navigate('/tickets'); // Navigate to tickets page
     };
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {  
+            event.preventDefault();
+            handleSubmit();
+        }
+    };
+
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Enter Your Email</DialogTitle>
@@ -28,6 +35,7 @@ const EmailForm = ({ open, onClose }) => {
                     variant="outlined"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    onKeyPress={handleKeyPress}
                     sx={{ '& .MuiInputBase-input': { fontSize: '1.25rem' } }}  // Larger text field styling
                 />
             </DialogContent>
