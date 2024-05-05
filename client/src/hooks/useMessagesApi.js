@@ -35,7 +35,32 @@ const useMessagesApi = (ticketId) => {
     fetchMessages();
   }, [ticketId]);
 
-  return { messages, isLoading, error, setMessages };
+    const postMessage = async (ticketId, messageText, senderId) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(`${process.env.REACT_APP_DEEPLOY_SERVER_URL}/api/messages`, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ticketId, messageText, senderId })
+            });
+        
+            if (!response.ok) {
+                throw new Error('Failed to post message');
+            }
+        
+            const data = await response.json();
+            setMessages([...messages, data]); // Assume the response is the newly created message
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };  
+
+  return { messages, isLoading, error, setMessages, postMessage };
 };
 
 export default useMessagesApi;

@@ -43,6 +43,23 @@ app.get('/api/posts', async (req, res) => {
 
 // Retrieve and return all tickets from the database
 app.get('/api/tickets', async (req, res) => {
+    // Check for a query string paramater email
+    const { email } = req.query;
+    if (email) {
+        try {
+            const tickets = await prisma.ticket.findMany({
+                where: {
+                    email: email
+                }
+            });
+            res.json(tickets);
+        } catch (error) {
+            console.error('Error retrieving tickets:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+        return;
+    }
+
     try {
         const tickets = await prisma.ticket.findMany();
         res.json(tickets);
@@ -101,6 +118,24 @@ app.get('/api/messages/:ticket_id', async (req, res) => {
         res.json(messages);
     } catch (error) {
         console.error('Error retrieving messages:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Post a new message to the database
+app.post('/api/messages', async (req, res) => {
+    const { ticketId, messageText, senderId } = req.body;
+    try {
+        const newMessage = await prisma.message.create({
+            data: {
+                ticketId: ticketId,
+                messageText: messageText,
+                senderId: senderId
+            }
+        });
+        res.json(newMessage);
+    } catch (error) {
+        console.error('Error creating message:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });

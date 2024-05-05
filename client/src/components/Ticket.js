@@ -34,7 +34,7 @@ const Ticket = ({ ticketId, name, email, description, date, status: currentStatu
   const [messagesExpanded, setMessagesExpanded] = useState(false);
 //   const [messages, setMessages] = useState(sampleMessages);
 
-  const { messages, setMessages } = useMessagesApi(ticketId);
+  const { messages, setMessages, postMessage } = useMessagesApi(ticketId);
 
   const open = Boolean(anchorEl);
   const descriptionThreshold = 300; // Threshold for description length before expanding
@@ -56,12 +56,20 @@ const Ticket = ({ ticketId, name, email, description, date, status: currentStatu
   };
 
   const handleSendMessage = (text) => {
-    const newMessage = {
-      messageText: text,
-      messageSender: "user@example.com", // Static example
-      date: new Date().toISOString()
-    };
+    // const newMessage = {
+    //   messageText: text,
+    //   messageSender: "user@example.com", // Static example
+    //   date: new Date().toISOString()
+    // };
     // setMessages([...messages, newMessage]);
+
+    //ADD IN LOGIC FOR SENDER ID HERE
+    // if rendered in admin page sender is null else its from the context
+    const newMessage = {
+        messageText: text,
+        senderId: null
+    }
+    postMessage(ticketId, text)
     setMessages(prevMessages => [...prevMessages, newMessage]);
     console.log("Message sent:", text);
   };

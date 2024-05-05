@@ -10,154 +10,106 @@ import {
 } from '@mui/material';
 
 import NewTicketForm from './NewTicketForm';
+import EmailForm from './EmailForm';
 
 
-const AdminPage = () => {
+
+const HomePage = () => {
     const [openNewTicketForm, setOpenNewTicketForm] = useState(false)
+    const [openEmailForm, setOpenEmailForm] = useState(false);
+
     const navigate = useNavigate();
 
     const handleSeeTicketsClick = () => {
-        navigate('/tickets');
+        setOpenEmailForm(true)
     };
 
     const handleAdminClick = () => {
         navigate('/admin');
     }
 
-    //////////////////
-    const fetchData = async () => {
-        // const response = await fetch('https://deeploy-test.vercel.app/api');
-        const response = await fetch(`${process.env.REACT_APP_DEEPLOY_SERVER_URL}/api`);
-        // const response = await fetch('/api');
-        const data = await response.json();
-        return data;
-    };
-      
-    const fetchOtherData = async () => {
-        const response = await fetch(`${process.env.REACT_APP_DEEPLOY_SERVER_URL}/api/posts`);
-        const data = await response.json();
-        return data;
-    }
-
-    const [data, setData] = useState([{}]);
-    const [otherData, setOtherData] = useState([{}]);
-  
-    useEffect(() => {
-      const fetchDataAndSetData = async () => {
-        console.log('fetch is called')
-        console.log(process.env.REACT_APP_DEEPLOY_SERVER_URL, 'DEEPLOY_SERVER_URL')
-        try {
-          const fetchedData = await fetchData();
-          console.log(fetchedData, 'FETCHED DATA')
-          setData(fetchedData);
-        } catch (e) {
-          console.log(e, 'ERROR');
-        }
-      };
-  
-      //Delete this function
-      const fetchOtherDataAndSetOtherData = async () => {
-        console.log('fetch is called')
-        console.log(process.env.REACT_APP_DEEPLOY_SERVER_URL, 'DEEPLOY_SERVER_URL')
-        try {
-          const fetchedData = await fetchOtherData();
-          console.log(fetchedData, 'FETCHED DATA')
-          setOtherData(fetchedData);
-        } catch (e) {
-          console.log(e, 'ERROR');
-        }
-      };
-  
-  
-      fetchDataAndSetData();
-      fetchOtherDataAndSetOtherData();
-    }, []);
-
-
-
-
-    //////////////////
-
     return (
+            
         <React.Fragment>
-          <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-            {/* Welcome Banner */}
-            <Box sx={{
-              width: '100%',
-              backgroundColor: '#2196f3', // Bright blue to stand out
-              color: 'white',
-              padding: '20px 0',
-              borderRadius: '12px',
-              boxShadow: 1,
-              marginBottom: '24px',
-              textAlign: 'center'
-            }}>
-              <Typography variant="h3" component="div">
-                Welcome to the Help Desk
-              </Typography>
-            </Box>
-    
-            {/* Cards */}
-            <Grid container spacing={4} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
-              <Grid item xs={12} md={6}>
-                <Card variant="outlined" sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  height: 300,
-                  backgroundColor: '#e3f2fd',
-                  borderRadius: '12px',
-                  transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s',
-                  cursor: 'pointer',
-                  '&:hover': {
-                    transform: 'scale(1.05)',
-                    boxShadow: 6,
-                    backgroundColor: '#bbdefb',
-                  }
-                }}
-                onClick={() => setOpenNewTicketForm(true)}>
-                  <CardContent>
-                    <Typography variant="h4" component="div" gutterBottom align="center" color="primary">
-                      Submit a New Ticket
-                    </Typography>
-                    <Typography variant="body1" align="center">
-                      Click here to open a new support ticket and get help from our support team.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Card variant="outlined" sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  height: 300,
-                  backgroundColor: '#ffe0b2',
-                  borderRadius: '12px',
-                  transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s',
-                  cursor: 'pointer',
-                  '&:hover': {
-                    transform: 'scale(1.05)',
-                    boxShadow: 6,
-                    backgroundColor: '#ffcc80',
-                  }
-                }}
-                onClick={handleSeeTicketsClick}>
-                  <CardContent>
-                    <Typography variant="h4" component="div" gutterBottom align="center" color="secondary">
-                      See Your Tickets
-                    </Typography>
-                    <Typography variant="body1" align="center">
-                      View all your tickets and track their status.
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-          </Container>
-          <NewTicketForm open={openNewTicketForm} handleClose={() => setOpenNewTicketForm(false)} />
-        </React.Fragment>
-      );
+            <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
+                {/* Welcome Banner */}
+                <Box sx={{
+                width: '100%',
+                backgroundColor: '#2196f3', // Bright blue to stand out
+                color: 'white',
+                padding: '20px 0',
+                borderRadius: '12px',
+                boxShadow: 1,
+                marginBottom: '24px',
+                textAlign: 'center'
+                }}>
+                <Typography variant="h3" component="div">
+                    Welcome to the Help Desk
+                </Typography>
+                </Box>
+        
+                {/* Cards */}
+                <Grid container spacing={4} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '60vh' }}>
+                <Grid item xs={12} md={6}>
+                    <Card variant="outlined" sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    height: 300,
+                    backgroundColor: '#e3f2fd',
+                    borderRadius: '12px',
+                    transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s',
+                    cursor: 'pointer',
+                    '&:hover': {
+                        transform: 'scale(1.05)',
+                        boxShadow: 6,
+                        backgroundColor: '#bbdefb',
+                    }
+                    }}
+                    onClick={() => setOpenNewTicketForm(true)}>
+                    <CardContent>
+                        <Typography variant="h4" component="div" gutterBottom align="center" color="primary">
+                        Submit a New Ticket
+                        </Typography>
+                        <Typography variant="body1" align="center">
+                        Click here to open a new support ticket and get help from our support team.
+                        </Typography>
+                    </CardContent>
+                    </Card>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                    <Card variant="outlined" sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    height: 300,
+                    backgroundColor: '#ffe0b2',
+                    borderRadius: '12px',
+                    transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s',
+                    cursor: 'pointer',
+                    '&:hover': {
+                        transform: 'scale(1.05)',
+                        boxShadow: 6,
+                        backgroundColor: '#ffcc80',
+                    }
+                    }}
+                    onClick={handleSeeTicketsClick}>
+                    <CardContent>
+                        <Typography variant="h4" component="div" gutterBottom align="center" color="secondary">
+                        See Your Tickets
+                        </Typography>
+                        <Typography variant="body1" align="center">
+                        View all your tickets and track their status.
+                        </Typography>
+                    </CardContent>
+                    </Card>
+                </Grid>
+                </Grid>
+            </Container>
+            <EmailForm open={openEmailForm} onClose={() => setOpenEmailForm(false)} />
+            <NewTicketForm open={openNewTicketForm} handleClose={() => setOpenNewTicketForm(false)} />
+        </React.Fragment>     
+    );
 }
 
-export default AdminPage;
+export default HomePage;
