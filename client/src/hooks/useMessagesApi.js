@@ -24,7 +24,7 @@ const useMessagesApi = (ticketId) => {
         }
 
         const data = await response.json();
-        setMessages(data); // Assume the response returns an array of messages
+        setMessages(data);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -52,7 +52,7 @@ const useMessagesApi = (ticketId) => {
             }
         
             const data = await response.json();
-            setMessages([...messages, data]); // Assume the response is the newly created message
+            setMessages([...messages, data]);
         } catch (err) {
             setError(err.message);
         } finally {

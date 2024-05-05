@@ -4,7 +4,6 @@ import { Container, Box, Typography } from '@mui/material';
 import Ticket from './Ticket';
 import useTicketsApi from '../hooks/useTicketsApi';
 import { useUser } from '../contexts/UserContext';
-import EmailForm from './EmailForm';
 
 const UserTicketPage = () => {
     const { email } = useUser();
@@ -20,7 +19,6 @@ const UserTicketPage = () => {
         const fetchData = async () => {
             try {
                 const response = await getTicketsByEmail(email);
-                console.log(response, 'Response')
                 setTickets(response);
             } catch (error) {
                 console.error('Error fetching tickets:', error);

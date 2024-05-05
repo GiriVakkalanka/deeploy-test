@@ -20,7 +20,6 @@ import SubmittedTicketPage from './components/SubmittedTicketPage';
 function App() {
   const navigate = useNavigate();
   const { email, saveEmail } = useUser();
-  console.log(email, 'EMAIL AT APP LEVEL')
 
   const handleAdminClick = () => {
     navigate('/admin');

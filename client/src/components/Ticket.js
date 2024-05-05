@@ -21,9 +21,10 @@ const Ticket = ({ ticketId, name, email, description, date, status: currentStatu
   const { email: loggedInEmail } = useUser();
   const { updateTicketStatus } = useTicketsApi();
   const { messages, setMessages, postMessage } = useMessagesApi(ticketId);  
-  console.log(messages, 'Messages')
   const open = Boolean(anchorEl);
-  const descriptionThreshold = 300; // Threshold for description length before expanding
+  
+  // Threshold for description length before expanding
+  const descriptionThreshold = 300; 
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -52,12 +53,10 @@ const Ticket = ({ ticketId, name, email, description, date, status: currentStatu
     }
     postMessage(ticketId, messageText, sender)
     setMessages(prevMessages => [...prevMessages, newMessage]);
-    console.log("Message sent:", newMessage);
   };
 
   const handleStatusChange = (newStatus) => {
     
-    console.log(`Status changed to: ${newStatus}`);
     //call the updateTicketStatus function from the useTicketsApi hook
     updateTicketStatus(ticketId, newStatus);
     setStatus(newStatus);

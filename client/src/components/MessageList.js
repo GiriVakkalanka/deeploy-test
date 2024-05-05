@@ -22,7 +22,6 @@ const MessageList = ({ messages }) => {
             primary={`${message.senderId} (${moment(message.createdAt).format('MMMM Do YYYY, h:mm:ss a')})`}
             secondary={<Typography component="span" variant="body2">{message.messageText}</Typography>}
           />
-          {console.log(message.createdAt, 'Message Date')}
         </ListItem>
       ))}
     </List>

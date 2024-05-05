@@ -11,7 +11,6 @@ const AdminPage = () => {
         const fetchData = async () => {
             try {
                 const response = await getAllTickets();
-                console.log(response, 'ALL TICKETS RESPONSE')
                 setTickets(response);
             } catch (error) {
                 console.error('Error fetching tickets:', error);

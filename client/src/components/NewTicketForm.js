@@ -28,7 +28,6 @@ const NewTicketForm = ({ open, handleClose }) => {
 
   const handleSubmit = () => {
     if (validateForm()) {
-      console.log({ name, email, description });
       saveEmail(email); 
       submitTicket({ name, email, description });
 

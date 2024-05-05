@@ -14,33 +14,6 @@ app.use(cors({
 
 app.use(express.json());
 
-// Define a route for /api
-app.get('/api', (req, res) => {
-    // Array of generic users
-    console.log('API CALLED')
-    const users = [
-        { id: 1, name: 'John Doe' },
-        { id: 2, name: 'Jane Smith' },
-        { id: 3, name: 'Bob Johnson' }
-    ];
-
-    // Send the users as a response
-    res.json(users);
-});
-
-app.get('/api/posts', async (req, res) => {
-    // Array of generic posts
-    // const posts = [
-    //     { id: 1, post: 'This app is awesome' },
-    //     { id: 2, post: 'This app sucks' },
-    //     { id: 3, post: 'I like turtles' }
-    // ];
-    const posts = await prisma.post.findMany()
-    console.log(posts, 'POSTS')
-    // Send the posts as a response
-    res.json(posts);
-});
-
 // Retrieve and return tickets from the database
 app.get('/api/tickets', async (req, res) => {
     // Check for a query string paramater email
@@ -71,8 +44,6 @@ app.get('/api/tickets', async (req, res) => {
 
 // Post a new ticket to the database
 app.post('/api/tickets', async (req, res) => {
-    console.log('API CALLED')
-    console.log(req.body, 'REQ BODY');
     const { name, email, description } = req.body;
     try {
         const ticket = await prisma.ticket.create({
@@ -164,5 +135,4 @@ app.post('/api/messages', async (req, res) => {
 // Start the server on port 5000
 app.listen(5000, () => {
     console.log('Server is listening on port 5000');
-    console.log(process.env.POSTGRES_URL);
 });
