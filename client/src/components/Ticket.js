@@ -24,9 +24,10 @@ const sampleMessages = [
     }
   ];
 
-const Ticket = ({ name, email, description, date, status }) => {
+const Ticket = ({ name, email, description, date, status: currentStatus }) => {
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [status, setStatus] = useState('NEW');
 
   const [messagesExpanded, setMessagesExpanded] = useState(false);
   const [messages, setMessages] = useState(sampleMessages);
@@ -63,6 +64,7 @@ const Ticket = ({ name, email, description, date, status }) => {
 
   const handleStatusChange = (newStatus) => {
     console.log(`Status changed to: ${newStatus}`);
+    setStatus(newStatus);
     handleClose();
   };
 
@@ -70,14 +72,14 @@ const Ticket = ({ name, email, description, date, status }) => {
 
   return (
     <Card sx={{
-      width: '90%', // Stretching width to 90% of its container
-      minHeight: 200, // minimum height
+      width: '90%', 
+      minHeight: 200,
       boxShadow: 3,
       '&:hover': {
         boxShadow: 6,
       },
       marginBottom: 2,
-      overflow: 'hidden' // hide overflow, control visibility with Collapse
+      overflow: 'hidden'
     }}>
       <CardContent>
         <Box display="flex" justifyContent="space-between" alignItems="center">
