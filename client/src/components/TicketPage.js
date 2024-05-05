@@ -28,7 +28,7 @@ const UserTicketPage = () => {
         };
 
         fetchData();
-    }, []);
+    }, [email]);
     return (
         <Container>
             <Box display="flex" flexDirection="column" alignItems="center" marginTop={4}>
