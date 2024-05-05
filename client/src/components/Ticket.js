@@ -8,26 +8,9 @@ import ChatIcon from '@mui/icons-material/Chat';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 
+import useTicketsApi from '../hooks/useTicketsApi';
 import useMessagesApi from '../hooks/useMessagesApi';
 import { useUser } from '../contexts/UserContext';
-
-// const sampleMessages = [
-//     {
-//       messageText: "Hi, I need help resetting my password.",
-//       messageSender: "user@example.com",
-//       date: "2022-05-01T14:48:00"
-//     },
-//     {
-//       messageText: "Sure, I can help you with that. Have you tried the 'Forgot Password' link on the login page?",
-//       messageSender: "admin@example.com",
-//       date: "2022-05-01T15:00:00"
-//     },
-//     {
-//       messageText: "Yes, but I haven't received any email to reset my password.",
-//       messageSender: "user@example.com",
-//       date: "2022-05-01T15:15:00"
-//     }
-//   ];
 
 const Ticket = ({ ticketId, name, email, description, date, status: currentStatus }) => {
   const [expanded, setExpanded] = useState(false);
@@ -36,6 +19,7 @@ const Ticket = ({ ticketId, name, email, description, date, status: currentStatu
   const [messagesExpanded, setMessagesExpanded] = useState(false);
   const { pathname } = useLocation();
   const { email: loggedInEmail } = useUser();
+  const { updateTicketStatus } = useTicketsApi();
   const { messages, setMessages, postMessage } = useMessagesApi(ticketId);  
   console.log(messages, 'Messages')
   const open = Boolean(anchorEl);
@@ -72,7 +56,10 @@ const Ticket = ({ ticketId, name, email, description, date, status: currentStatu
   };
 
   const handleStatusChange = (newStatus) => {
+    
     console.log(`Status changed to: ${newStatus}`);
+    //call the updateTicketStatus function from the useTicketsApi hook
+    updateTicketStatus(ticketId, newStatus);
     setStatus(newStatus);
     handleClose();
   };

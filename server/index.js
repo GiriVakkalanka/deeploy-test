@@ -9,7 +9,7 @@ const app = express();
 
 app.use(cors({
     origin: ['https://deeploy-test-client.vercel.app', 'http://localhost:3000'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE']
+    methods: ['GET', 'POST', 'PATCH', 'DELETE']
 }));
 
 app.use(express.json());
@@ -86,6 +86,26 @@ app.post('/api/tickets', async (req, res) => {
         res.json(ticket);
     } catch (error) {
         console.error('Error creating ticket:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+// Patch update a ticket status
+app.patch('/api/tickets/:id', async (req, res) => {
+    const { id } = req.params;
+    const { status } = req.body;
+    try {
+        const ticket = await prisma.ticket.update({
+            where: {
+                id: parseInt(id)
+            },
+            data: {
+                status: status
+            }
+        });
+        res.json(ticket);
+    } catch (error) {
+        console.error('Error updating ticket:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });

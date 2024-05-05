@@ -78,7 +78,38 @@ const useTicketsApi = () => {
         }
     };
 
-    return { isLoading, error, submitTicket, getAllTickets, getTicketsByEmail };
+    //Write a function to update the status of a ticket
+    const updateTicketStatus = async (ticketId, status) => {
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(`${process.env.REACT_APP_DEEPLOY_SERVER_URL}/api/tickets/${ticketId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status }),
+            });
+            if (!response.ok) {
+                throw new Error('Failed to update ticket status');
+            }
+            const ticket = await response.json();
+            return ticket;
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return { 
+        isLoading, 
+        error, 
+        submitTicket, 
+        getAllTickets, 
+        getTicketsByEmail,
+        updateTicketStatus
+    };
 };
 
 export default useTicketsApi;
