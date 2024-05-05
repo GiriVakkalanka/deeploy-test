@@ -6,31 +6,35 @@ import ChatIcon from '@mui/icons-material/Chat';
 import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 
-const sampleMessages = [
-    {
-      messageText: "Hi, I need help resetting my password.",
-      messageSender: "user@example.com",
-      date: "2022-05-01T14:48:00"
-    },
-    {
-      messageText: "Sure, I can help you with that. Have you tried the 'Forgot Password' link on the login page?",
-      messageSender: "admin@example.com",
-      date: "2022-05-01T15:00:00"
-    },
-    {
-      messageText: "Yes, but I haven't received any email to reset my password.",
-      messageSender: "user@example.com",
-      date: "2022-05-01T15:15:00"
-    }
-  ];
+import useMessagesApi from '../hooks/useMessagesApi';
 
-const Ticket = ({ name, email, description, date, status: currentStatus }) => {
+// const sampleMessages = [
+//     {
+//       messageText: "Hi, I need help resetting my password.",
+//       messageSender: "user@example.com",
+//       date: "2022-05-01T14:48:00"
+//     },
+//     {
+//       messageText: "Sure, I can help you with that. Have you tried the 'Forgot Password' link on the login page?",
+//       messageSender: "admin@example.com",
+//       date: "2022-05-01T15:00:00"
+//     },
+//     {
+//       messageText: "Yes, but I haven't received any email to reset my password.",
+//       messageSender: "user@example.com",
+//       date: "2022-05-01T15:15:00"
+//     }
+//   ];
+
+const Ticket = ({ ticketId, name, email, description, date, status: currentStatus }) => {
   const [expanded, setExpanded] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [status, setStatus] = useState('NEW');
 
   const [messagesExpanded, setMessagesExpanded] = useState(false);
-  const [messages, setMessages] = useState(sampleMessages);
+//   const [messages, setMessages] = useState(sampleMessages);
+
+  const { messages, setMessages } = useMessagesApi(ticketId);
 
   const open = Boolean(anchorEl);
   const descriptionThreshold = 300; // Threshold for description length before expanding
@@ -140,7 +144,7 @@ const Ticket = ({ name, email, description, date, status: currentStatus }) => {
           ))}
         </Menu>
         <Collapse in={messagesExpanded} timeout="auto" unmountOnExit>
-          <MessageList messages={messages} />
+          {messages && <MessageList messages={messages} />}
           <MessageInput onSend={handleSendMessage} />
         </Collapse>
       </CardContent>
